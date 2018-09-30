@@ -48,7 +48,6 @@ function mousePressed() {
 			o.dragging = true;
 			o.draggingOffsetX = mouseX - o.x;
 			o.draggingOffsetY = mouseY - o.y;
-			console.log('dragging');
 		} else {
 			o.dragging = false;
 		}
@@ -58,9 +57,14 @@ function mousePressed() {
 
 	//Testing purposes only
 	if (!mouseHeld && !dragging){
-		var image = loadImage("images/2C.png");
+		var cardImg = loadImage("images/2C.png");
+		var backImg = loadImage("images/blue_back.png");
 
-		objects.push(new GameObjectCard(mouseX, mouseY, 80, 120, image));
+		var deck = new GameObjectDeck(mouseX, mouseY, 80, 120, backImg);
+		deck.addNewCard(cardImg);
+		addGameObject(deck);
+
+		//objects.push(new GameObjectCard(mouseX, mouseY, 80, 120, image));
 	}
 
 	mouseHeld = true;
@@ -71,6 +75,10 @@ function mouseReleased(){
 	objects.forEach(function (o){
 		o.dragging = false;
 	});
+}
+
+function addGameObject(object){
+	objects.push(object);
 }
 
 function saveData(){

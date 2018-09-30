@@ -8,6 +8,6 @@ class GameObjectCard extends GameObject{
   show(){
     super.show();
 
-    image(this.img, this.x, this.y, this.w, this.h)
+    image(this.img, this.x, this.y, this.w, this.h);
   }
 }
