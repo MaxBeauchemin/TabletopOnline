@@ -1,3 +1,4 @@
+var firestore;
 var database;
 var objects;
 var mouseHeld;
@@ -10,19 +11,31 @@ function setup() {
 	mouseHeld = false;
 
 	// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCrfjBMqGQGt4mmZyj7eP3OLakc5ShRJPU",
-    authDomain: "customservices-dfe9a.firebaseapp.com",
-    databaseURL: "https://customservices-dfe9a.firebaseio.com",
-    projectId: "customservices-dfe9a",
-    storageBucket: "",
-    messagingSenderId: "54272558564"
+	//const firebase = require("firebase");
+	//require("firebase/firestore");
+
+	var config = {
+    apiKey: "AIzaSyDgEbBQa_9gJBuvvPQGJAw27RDwkrqP6Bo",
+    authDomain: "tabletop-007.firebaseapp.com",
+    databaseURL: "https://tabletop-007.firebaseio.com",
+    storageBucket: "tabletop-007.appspot.com"
   };
   firebase.initializeApp(config);
+	//firestore = firebase.firestore();
 	database = firebase.database();
+	//firestore.settings({
+	 // timestampsInSnapshots: true
+	//});
 
-	var ref = database.ref('tabltop');
-  ref.on('value', gotData, errData);
+	//firestore.collection("rooms").get().then(function (docs){
+		//docs.forEach(function (d){
+			//console.log(d.data());
+		//});
+	//});
+
+	//Unknown if syntax is still the same
+	var ref = database.ref('rooms');
+  ref.on('value', gotRoomsData, errRoomsData);
 }
 
 function draw() {
@@ -60,8 +73,8 @@ function mousePressed() {
 		var cardImg = loadImage("images/2C.png");
 		var backImg = loadImage("images/blue_back.png");
 
-		var deck = new GameObjectDeck(mouseX, mouseY, 80, 120, backImg);
-		deck.addNewCard(cardImg);
+		var deck = new GameObjectDeck(mouseX, mouseY, 80, 120);
+		deck.addNewCard(cardImg, backImg);
 		addGameObject(deck);
 
 		//objects.push(new GameObjectCard(mouseX, mouseY, 80, 120, image));
@@ -81,13 +94,25 @@ function addGameObject(object){
 	objects.push(object);
 }
 
+function gotRoomsData(data){
+	var val = data.val();
+	for (key in val){
+		console.log(val[key]);
+	}
+}
+
+function errRoomsData(error){
+	console.log('Error getting Rooms: => ' + error);
+}
+
+/*
 function saveData(){
 	var data = currPath.format();
 	if(currPath.key == null){
-		var res = database.ref('tabletop').push(data);
+		var res = database.ref('rooms').push(data);
 		currPath.key = res.key;
 	} else {
-		var ref = database.ref('tabletop/' + currPath.key);
+		var ref = database.ref('rooms/' + currPath.key);
 		if(ref != null){
 			ref.set(data);
 		} else {
@@ -107,3 +132,4 @@ function gotData(data){
 function errData(error){
 	console.log(error);
 }
+*/

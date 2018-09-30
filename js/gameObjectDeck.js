@@ -1,8 +1,7 @@
 class GameObjectDeck extends GameObject{
 
-  constructor(x, y, w, h, cardBackImg){
+  constructor(x, y, w, h){
     super(x, y, w, h);
-    this.cardBackImg = cardBackImg;
     this.cards = [];
     this.facedown = true;
   }
@@ -15,8 +14,8 @@ class GameObjectDeck extends GameObject{
     this.cards.push(cardObject);
   }
 
-  addNewCard(img){
-    this.cards.push(new GameObjectCard(this.x, this.y, this.w, this.h, img));
+  addNewCard(frontImg, backImg){
+    this.cards.push(new GameObjectCard(this.x, this.y, this.w, this.h, frontImg, backImg));
   }
 
   update(){
@@ -41,15 +40,16 @@ class GameObjectDeck extends GameObject{
 
     if (this.isEmpty()){
       strokeWeight(3);
-      stroke(0, 0, 255, 50);
+      stroke(0, 150, 255, 180);
       rect(this.x, this.y, this.w, this.h);
       return;
     }
 
+    var topCard = this.cards[0];
     if (this.facedown){
-      image(this.cardBackImg, this.x, this.y, this.w, this.h);
+      image(topCard.backImg, this.x, this.y, this.w, this.h);
     } else {
-
+      image(topCard.frontImg, this.x, this.y, this.w, this.h);
     }
   }
 }

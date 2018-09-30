@@ -1,0 +1,13 @@
+/* Controls CSS */
+button {
+  margin-left: 10px;
+  background: #383E4C;
+  border: 1px solid #000;
+  color: #fff;
+  font-size: 20px;
+  padding: 5px 20px;
+}
+
+button:hover{
+  color: #0af;
+}
